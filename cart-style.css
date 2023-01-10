@@ -1,0 +1,28 @@
+p {max-width: 50vw;}
+
+.divider {
+    margin: 1rem 0
+}
+
+.image-container {
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.header-placeholder {margin-bottom: 1rem;}
+
+img {width: 100%; height: 100%; object-fit: cover;}
+
+section {
+    height: auto;
+    width: auto;
+    margin: 3rem 0
+}
+
+.table-container {display: flex; margin: 1rem 0}
+.table-container p {width: 25vw;}
+
+.button {}
+
