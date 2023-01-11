@@ -56,7 +56,7 @@ let sizes = {
 
 //plane
 const geometry = new THREE.PlaneGeometry( sizes.width, sizes.height );
-const material = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0} );
+const material = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0, envMapIntensity: 0} );
 //material.blending = THREE.SubtractiveBlending;
 const plane = new THREE.Mesh( geometry, material );
 plane.position.set(0, 0, -20);
@@ -180,6 +180,7 @@ function loop() {
     startLeftLight.position.y = -movelights.value *  10 * Math.cos(Date.now() / 2000);
     startLeftLight.position.x = -movelights.value *  10 * Math.sin(Date.now() / 2000);
   }
+  console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap.name)
 }
 
 loop()
@@ -207,7 +208,6 @@ function setupAnimation(){
   basetta = models.basetta
   specta.children[0].children[0].material.envMapIntensity = 0
   basetta.children[0].children[0].material.envMapIntensity = 0
-  plane.material.envMapIntensity = 0
 
   specta.position.set( 0, -7, 3);
   specta.rotation.set(1.7, -0.12, 0);
@@ -223,6 +223,9 @@ function setupAnimation(){
 
   models.mac.rotation.y = -0.5
   models.tv.rotation.y = 0.5
+
+  
+  models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.envMapIntensity = 0;
 
   desktopAnimation()
 
@@ -292,7 +295,7 @@ function desktopAnimation() {
 
   //la basetta scende 
   tl.to(basetta.rotation, {x:1.57, y:1.57}, section)
-  tl.to(specta.position, {x:0, y:20, z:50}, '<')
+  tl.to(specta.position, {x:0, y:20, z:0}, '<')
   tl.to(basetta.position, {x:5}, '<')
   tl.to(".video-container", {y: "-100vh"}, '<')
   tl.add(function() {video.pause()}, section)
@@ -300,9 +303,9 @@ function desktopAnimation() {
   section +=2
 
   //la basetta va in centro e entrano i dispositivi
-  tl.to(basetta.position, {x:0, y:-15, z:-25}, section)
+  tl.to(basetta.position, {x:0, y:-18, z:-40}, section)
   tl.to(basetta.rotation, {x:0, y:0, z:0}, '<')
-  tl.to(specta.position, {x:0, y:-12, z:-25}, '<')
+  tl.to(specta.position, {x:0, y:-15, z:-40}, '<')
   tl.to(specta.rotation, {x:0, y:0, z:0}, '<')
   tl.from(models.mac.position, {x:100}, '<')
   tl.from(models.mac.rotation, {y:1.57}, '<')
@@ -322,15 +325,14 @@ function desktopAnimation() {
   tl.to(models.mac.rotation, {y:1.57}, '<')
   tl.to(models.tv.position, {x:-100}, '<')
   tl.to(models.tv.rotation, {y:-1.57}, '<')
-  tl.to(basetta.position, {y:-50}, '<')
-  tl.to(specta.position, {y:-50}, '<')
+  tl.to(basetta.position, {y:-40}, '<')
+  tl.to(specta.position, {y:-37}, '<')
   tl.to(".all-devices", {y:"-2vh", opacity:0, duration: 1}, '<')
   tl.from(".app", {y:"2vh", opacity:0, duration: 1}, section + 0.5)
   tl.add(function() {
     
     var appTex = new THREE.TextureLoader().load('assets/dispositivi/iphone/textures/ekran_baseColor_1.png');
     var waveTex = new THREE.TextureLoader().load('assets/dispositivi/iphone/textures/ekran_baseColor.png');
-    var appEmiTex = new THREE.TextureLoader().load('assets/dispositivi/iphone/textures/ekran_baseColor_1_emission.png');
 
     waveTex.flipY = false;
 
@@ -338,31 +340,27 @@ function desktopAnimation() {
         iphoneTex = "wave";
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map = waveTex;
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap = waveTex;
-      
     }
-      else if (iphoneTex =="wave") {
+      else {
         iphoneTex = "app"
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map = appTex;
-        models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap = appEmiTex;
+        models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap = appTex;
       }
     }
 
   , section+1) 
   section +=2
 
-/* //telefono al centro
-  tl.to(".app", {y:"-2vh", opacity:0, duration: 1}, section);
-  tl.to(models.iphone.position, {x:0}, '<');
-  tl.to(models.iphone.rotation, {x:0, y:0, z:0}, '<');
-  section +=2
+//telefono esce
+  tl.to(".app", {y:"-80vh", opacity: 0}, section);
+  tl.to(models.iphone.position, {y: 40, duration: 1.5}, section + 0.5);
+  tl.to(models.iphone, {opacity: 0}, '<');
   
 //due colorazioni
-  tl.to(models.iphone.position, {x:-1, z:-85}, section)
-  tl.to(models.iphone.scale, {x:0.5, y:0.5, z:0.5}, '<')
-  tl.to(models.iphone.rotation, {y:-6.28}, '<');
-  tl.fromTo(specta.rotation, {x:1, y:-0.12, z:-6.28}, {x:1, y:-0.12, z:0},'<')
-  tl.fromTo(specta.position, {x:0, y:-1, z:-85}, {x:0, y:-1, z:0},'<')
-  section+=2; */
+  tl.to(specta.rotation, {x:1.7, y:-0.12, z:0},'<')
+  tl.to(specta.position, {x:0, y:1, z:0},'<')
+  tl.from(".buynow", {y:"20vh"},section + 1.5)
+  section+=2; 
   
  
 
