@@ -5,14 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 gsap.registerPlugin(ScrollTrigger);
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-
 
 const hdrTextureURL = new URL('assets/Immagini/brown_photostudio_07_1k.hdr', import.meta.url); 
 const scene = new THREE.Scene();
 
 let specta;
 let basetta;
+let movelights = {value: 1};
+
+ 
 
 let iphoneTex = "wave";
 
@@ -36,7 +37,7 @@ toLoad.forEach(item=>{
     model.scene.traverse(child => {
       if (child instanceof THREE.Mesh) {
         child.receiveShadow = true;
-        child.castShadow = true;
+        //child.castShadow = true;
       }
     })
     item.group.add(model.scene)
@@ -47,50 +48,138 @@ toLoad.forEach(item=>{
 })
 
 
-
-
-
 //sizes 
 let sizes = {
   width : window.innerWidth,
   height : window.innerHeight
 } 
 
+//plane
+const geometry = new THREE.PlaneGeometry( sizes.width, sizes.height );
+const material = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0} );
+//material.blending = THREE.SubtractiveBlending;
+const plane = new THREE.Mesh( geometry, material );
+plane.position.set(0, 0, -20);
+plane.receiveShadow = true;
+plane.castShadow = true;
+scene.add( plane );
+
+
+//lights
+
+const startRightLight = new THREE.DirectionalLight( 0xffffff , 0.5 );
+startRightLight.position.set( 10, 10, -10 );
+startRightLight.castShadow = true
+startRightLight.shadow.bias = -0.01;
+startRightLight.shadow.mapSize.width = 2048
+startRightLight.shadow.mapSize.height = 2048
+startRightLight.shadow.camera.near = 1.0
+startRightLight.shadow.camera.far = 500
+startRightLight.shadow.camera.left = 200
+startRightLight.shadow.camera.right = -200
+startRightLight.shadow.camera.top = 200
+startRightLight.shadow.camera.bottom = -200
+
+const startLeftLight = new THREE.DirectionalLight( 0xffffff , 0.5 );
+startLeftLight.position.set( -10, -10, -10 );
+startLeftLight.castShadow = true
+startLeftLight.shadow.bias = -0.01;
+startLeftLight.shadow.mapSize.width = 2048
+startLeftLight.shadow.mapSize.height = 2048
+startLeftLight.shadow.camera.near = 1.0
+startLeftLight.shadow.camera.far = 500
+startLeftLight.shadow.camera.left = 200
+startLeftLight.shadow.camera.right = -200
+startLeftLight.shadow.camera.top = 200
+startLeftLight.shadow.camera.bottom = -200
+
+const RightLight = new THREE.DirectionalLight( 0xffffff , 0);
+RightLight.position.set( 50, 50, 50 );
+RightLight.castShadow = true
+RightLight.shadow.bias = -0.01;
+RightLight.shadow.mapSize.width = 2048
+RightLight.shadow.mapSize.height = 2048
+RightLight.shadow.camera.near = 1.0
+RightLight.shadow.camera.far = 500
+RightLight.shadow.camera.left = 200
+RightLight.shadow.camera.right = -200
+RightLight.shadow.camera.top = 200
+RightLight.shadow.camera.bottom = -200
+
+const LeftLight = new THREE.DirectionalLight( 0xffffff , 0);
+LeftLight.position.set( -10, -10, 10 );
+LeftLight.castShadow = true
+LeftLight.shadow.bias = -0.01;
+LeftLight.shadow.mapSize.width = 2048
+LeftLight.shadow.mapSize.height = 2048
+LeftLight.shadow.camera.near = 1.0
+LeftLight.shadow.camera.far = 500
+LeftLight.shadow.camera.left = 200
+LeftLight.shadow.camera.right = -200
+LeftLight.shadow.camera.top = 200
+LeftLight.shadow.camera.bottom = -200
+
+const BackLight = new THREE.DirectionalLight( 0xffffff , 0);
+BackLight.position.set( 0, 15, -15 );
+BackLight.target.position.set(0, 0, -20)
+BackLight.castShadow = true
+BackLight.shadow.bias = -0.01;
+BackLight.shadow.mapSize.width = 2048
+BackLight.shadow.mapSize.height = 2048
+BackLight.shadow.camera.near = 1.0
+BackLight.shadow.camera.far = 500
+BackLight.shadow.camera.left = 200
+BackLight.shadow.camera.right = -200
+BackLight.shadow.camera.top = 200
+BackLight.shadow.camera.bottom = -200
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0)
+
+scene.add( startRightLight, startLeftLight, RightLight, LeftLight, BackLight, BackLight.target, ambientLight );
 
 //hdri
 const hdriloader = new RGBELoader();
 hdriloader.load(hdrTextureURL, function(texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
-})
+})  
 
 //camera
-const camera = new THREE.PerspectiveCamera(50, sizes.width/sizes.height, 0.1, 100);
+const camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 0.1, 100);
 
-camera.position.set(0, 0, 20);
+camera.position.set(0, 0, 25);
 let cameraTarget = new THREE.Vector3(0, 0, 0)
 scene.add(camera);
 
 
 //render
+
+
+
+
 const renderer = new THREE.WebGLRenderer({alpha:true});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const container = document.querySelector('.canvas-container');
 container.appendChild( renderer.domElement)
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(2)
+renderer.setPixelRatio(window.devicePixelRatio)
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 
 
 
-//orbitcontrols
-//const controls = new OrbitControls(camera, renderer.domElement)
-
 function loop() {
   camera.lookAt(cameraTarget)
   renderer.render(scene, camera); 
   requestAnimationFrame(loop);
+  if(movelights.value > 0) {
+    startRightLight.position.y = movelights.value *  10 * Math.cos(Date.now() / 2000);
+    startRightLight.position.x = movelights.value *  10 * Math.sin(Date.now() / 2000);
+    startLeftLight.position.y = -movelights.value *  10 * Math.cos(Date.now() / 2000);
+    startLeftLight.position.x = -movelights.value *  10 * Math.sin(Date.now() / 2000);
+  }
 }
 
 loop()
@@ -116,9 +205,12 @@ onResize(); */
 function setupAnimation(){
   specta = models.specta
   basetta = models.basetta
+  specta.children[0].children[0].material.envMapIntensity = 0
+  basetta.children[0].children[0].material.envMapIntensity = 0
+  plane.material.envMapIntensity = 0
 
-  specta.position.set(1.5, -13,0);
-  specta.rotation.set(0,0,4);
+  specta.position.set( 0, -7, 3);
+  specta.rotation.set(1.7, -0.12, 0);
   basetta.position.set(0, -40, 0);
 
   models.iphone.scale.set(7,7,7)
@@ -135,8 +227,6 @@ function setupAnimation(){
   desktopAnimation()
 
 }
-
-
 
 //gsap.from(".waves-container", {y:0})
 
@@ -160,21 +250,29 @@ function desktopAnimation() {
   let section = 0;
 
   //comparsa
-  tl.to(specta.position, {x: 0, y:-1, z:0, duration: 1}, section);
-  tl.to(specta.rotation, {x:1, y:-0.12, z:0, duration: 1}, '<');
-  section += 1;
-
+  tl.to(movelights, {value: 0}, section)
+  tl.to(ambientLight, {intensity: 0.1}, '<')
+  tl.to(startLeftLight, {intensity: 0}, '<')
+  tl.to(startRightLight, {intensity: 0}, '<')
+  tl.to(RightLight, {intensity: 0.6}, '<')
+  tl.to(LeftLight, {intensity: 0}, '<')
+  tl.to(BackLight, {intensity: 0.2}, '<')
+  tl.to(specta.children[0].children[0].material, {envMapIntensity: 0.5}, '<')
+  tl.to(basetta.children[0].children[0].material, {envMapIntensity: 0.5}, '<')
+  tl.to(plane.material, {envMapIntensity: 1}, '<')
+  tl.to(plane.material, {opacity: 0, duration: 2}, '<')
+ 
   //si appoggia sulla basetta
   tl.to(specta.rotation, {x:0, y:1.57, z:0}, section)
-  tl.to(specta.position, {y:-2.55}, '<')
+  tl.to(specta.position, {x:0, y:-2.55, z:0}, '<')
   tl.to(basetta.position, {x:0, y:-5.5, z:0}, '<')
-  tl.from(".specta", {y:1000, opacity:0, duration: 1}, section+1)
+  tl.from(".specta", {y: "100vh", duration:1}, section+1)
   section += 2;
   
   //ruota per far spazio al testo
   tl.to(specta.position, {x:4, y:-1}, section+0.5)
   tl.to(basetta.position, {x:4, y:-4.05}, '<')
-  tl.to(".specta", {y: -500, opacity:0, duration: 1}, section+0.5)
+  tl.to(".specta", {y: "-50vh", duration:1}, section+0.5)
   tl.from(".personal-silencer", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
   
@@ -183,7 +281,7 @@ function desktopAnimation() {
   tl.to(basetta.position, {y:-1.05}, '<')
   tl.to(".personal-silencer", {y:"-10vh", opacity:0}, '<')
   tl.from(".video-container", {y: "100vh"}, '<')
-  tl.add(function() {video.play(); console.log("play")}, section)
+  tl.add(function() {video.play()}, section)
   section += 2;
   
   //in posizione per dopo il video
@@ -252,19 +350,19 @@ function desktopAnimation() {
   , section+1) 
   section +=2
 
-//telefono al centro
+/* //telefono al centro
   tl.to(".app", {y:"-2vh", opacity:0, duration: 1}, section);
   tl.to(models.iphone.position, {x:0}, '<');
   tl.to(models.iphone.rotation, {x:0, y:0, z:0}, '<');
   section +=2
   
-  //due colorazioni
+//due colorazioni
   tl.to(models.iphone.position, {x:-1, z:-85}, section)
   tl.to(models.iphone.scale, {x:0.5, y:0.5, z:0.5}, '<')
   tl.to(models.iphone.rotation, {y:-6.28}, '<');
   tl.fromTo(specta.rotation, {x:1, y:-0.12, z:-6.28}, {x:1, y:-0.12, z:0},'<')
   tl.fromTo(specta.position, {x:0, y:-1, z:-85}, {x:0, y:-1, z:0},'<')
-  section+=2;
+  section+=2; */
   
  
 
@@ -282,7 +380,7 @@ function desktopAnimation() {
 
 }   
 
-
+/* 
 gsap.timeline({
   scrollTrigger: {
     trigger: ".sec1",
@@ -296,7 +394,7 @@ gsap.timeline({
 
 
 
-/* gsap.utils.toArray(".video-scrub").forEach(video => videoScrub(video, {
+gsap.utils.toArray(".video-scrub").forEach(video => videoScrub(video, {
   scrollTrigger: {
     trigger: video,
     start: "center 50%-10px",

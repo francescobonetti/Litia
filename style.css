@@ -23,17 +23,18 @@ p, a, ul, h3, h2, h1 {
   font-weight: 500;
   line-height: 120%;
   text-align: left;
+  color: white;
+  mix-blend-mode: difference;
 }
  
 header p, header a {
   font-weight: 400;
   font-size: 16px;
-  color: white;
 }
 
 a {text-decoration: none;}
 
-a.button {color: black;}
+a.button { background-color: rgba(0, 0, 0, 0);}
 
 h1 {
   font-size: 120px;
@@ -41,7 +42,7 @@ h1 {
 }
 
 h2 {
-  font-size: 70px;
+  font-size: 80px;
   line-height: 100%;
 }
 
@@ -49,10 +50,8 @@ h2 {
   text-align: center;
   font-size: 16px;
   border-style: solid;
-  border-color: black;
   border-width: 2px;
   padding: 0.5em;
-  background-color: white;
   width: fit-content;
   cursor: pointer;
 } 
@@ -63,8 +62,7 @@ h2 {
 
 .header-placeholder{
   width: 100%;
-  height: 6vh;
-  background-color: white;
+  height: calc(6vh + 5rem);
 }
 
 
@@ -78,9 +76,9 @@ header {
   border-width: 1px;
   border-color:white; 
   position: fixed;
-  mix-blend-mode: difference;
-  z-index: 2;
+  z-index: 10;
   padding-bottom: 10px;
+  mix-blend-mode: difference;
 }
 
 .header-left {
@@ -110,7 +108,7 @@ header {
 
 section {
   position: relative;
-  z-index: -2;
+  z-index: 5;
   height: 100vh;
   width: 100%;
   /* border-style: solid;
@@ -118,15 +116,17 @@ section {
   border-width: 2px;  */
 }
 
-.text-container {position: fixed; height: 100vh; width: 100vw;}
+.text-container {position: fixed; height: 100vh; width: 100vw; mix-blend-mode: difference;}
+.under {z-index: -4;}
+.over {z-index: 0}
 
 .specta{
+  width: 95%;
   text-align: center;
   position: absolute;
   top: 5vh;
   font-weight: 500;
-  font-size: 320px;
-  color: black;
+  font-size: 20.5vw;
 }
 
 .description-block {position: absolute; top: 33%; width: 35%}
@@ -140,10 +140,10 @@ section {
 
 .app {left: 50%}
 
-.divider {width: 100%; height: 1px; background-color:black; margin: 3rem 0 2rem 0;}
+.divider {width: 100%; height: 1px; background-color:black; margin: 2rem 0}
 
-.intro-text-container {position: relative; top:1rem}
-.intro-text-container h1 {max-width: 85%;}
+.intro-text-container {display: flex; flex-direction: column; align-items: center;}
+.intro-text-container h2 {max-width: 58%; text-align: center; margin-bottom: 3rem;}
 
 .waves-container {
   height: 200vh;
@@ -177,6 +177,8 @@ section {
 canvas {
   position: fixed;
   top: 0;
+  left: 0;
+  z-index: -3;
   opacity: 1; 
 }
 
