@@ -1,8 +1,21 @@
 p {max-width: 50vw;}
 
+p, a, ul, h4, h3, h2, h1, input {
+    color: black;
+    mix-blend-mode: normal;
+}
+
+
+header p, header a {
+    color: white;
+  }
+
+
 .divider {
     margin: 1rem 0
 }
+
+.header-placeholder {height: calc(6vh);}
 
 .image-container {
     width: 100%;
@@ -21,8 +34,5 @@ section {
     margin: 3rem 0
 }
 
-.table-container {display: flex; margin: 1rem 0}
-.table-container p {width: 25vw;}
 
-.button {}
 

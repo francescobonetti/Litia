@@ -5,15 +5,29 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 gsap.registerPlugin(ScrollTrigger);
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-
 const hdrTextureURL = new URL('assets/Immagini/brown_photostudio_07_1k.hdr', import.meta.url); 
 const scene = new THREE.Scene();
 
 let specta;
 let basetta;
+let plane;
 let movelights = {value: 1};
+let video;
+let loading = document.querySelector(".loading");
+let camera;
 
- 
+let loadingTl = gsap.timeline({
+  defaults : {
+    ease: "power2.out",
+    duration: 2
+  }  
+});
+
+
+console.log("loading started")
+  loadingTl.to(".loading-rect", {width:"12vh", height: "12vh"})
+  loadingTl.call(loop)
+
 
 let iphoneTex = "wave";
 
@@ -27,17 +41,24 @@ const toLoad = [
 
 const models = {};
 
-const LoadingManager = new THREE.LoadingManager(()=>{
-  setupAnimation();
-})
+const LoadingManager = new THREE.LoadingManager
+
+//LoadingManager.onStart = loadingAnimation;
+LoadingManager.onProgress = function(url, loaded, total) {console.log(loaded)}
+LoadingManager.onLoad = setupAnimation;
+
 const gltfLoader = new GLTFLoader(LoadingManager)
+const textureLoader = new THREE.TextureLoader(LoadingManager)
+const hdriloader = new RGBELoader(LoadingManager);
+
+var appTex = textureLoader.load('assets/dispositivi/iphone/textures/ekran_baseColor_1.png');
+var waveTex = textureLoader.load('assets/dispositivi/iphone/textures/ekran_baseColor.png');
 
 toLoad.forEach(item=>{
   gltfLoader.load(item.file, (model)=>{
     model.scene.traverse(child => {
       if (child instanceof THREE.Mesh) {
         child.receiveShadow = true;
-        //child.castShadow = true;
       }
     })
     item.group.add(model.scene)
@@ -45,7 +66,7 @@ toLoad.forEach(item=>{
     scene.add(item.group);
     models[item.name] = item.group 
   })
-})
+}) 
 
 
 //sizes 
@@ -53,16 +74,6 @@ let sizes = {
   width : window.innerWidth,
   height : window.innerHeight
 } 
-
-//plane
-const geometry = new THREE.PlaneGeometry( sizes.width, sizes.height );
-const material = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0, envMapIntensity: 0} );
-//material.blending = THREE.SubtractiveBlending;
-const plane = new THREE.Mesh( geometry, material );
-plane.position.set(0, 0, -20);
-plane.receiveShadow = true;
-plane.castShadow = true;
-scene.add( plane );
 
 
 //lights
@@ -138,14 +149,13 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0)
 scene.add( startRightLight, startLeftLight, RightLight, LeftLight, BackLight, BackLight.target, ambientLight );
 
 //hdri
-const hdriloader = new RGBELoader();
 hdriloader.load(hdrTextureURL, function(texture) {
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = texture;
-})  
+})
 
 //camera
-const camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 0.1, 100);
+camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 0.1, 100);
 
 camera.position.set(0, 0, 25);
 let cameraTarget = new THREE.Vector3(0, 0, 0)
@@ -153,9 +163,6 @@ scene.add(camera);
 
 
 //render
-
-
-
 
 const renderer = new THREE.WebGLRenderer({alpha:true});
 renderer.shadowMap.enabled = true;
@@ -168,9 +175,8 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 
-
-
 function loop() {
+
   camera.lookAt(cameraTarget)
   renderer.render(scene, camera); 
   requestAnimationFrame(loop);
@@ -180,30 +186,30 @@ function loop() {
     startLeftLight.position.y = -movelights.value *  10 * Math.cos(Date.now() / 2000);
     startLeftLight.position.x = -movelights.value *  10 * Math.sin(Date.now() / 2000);
   }
-  console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap.name)
+
+  loading.classList.add("inactive")
+  //loadingTl.to(".loading", {opacity: 0})
+  loadingTl.to(".loading", {"z-index": -2})
+  
+  
 }
-
-loop()
-
-
-// --- ON RESIZE
-
-/* const onResize = () => {
-	sizes.width = container.clientWidth;
-	sizes.height = container.clientHeight;
-
-	camera.aspect = sizes.width/sizes.height;
-	camera.updateProjectionMatrix()
-
-  renderer.setSize(sizes.width, sizes.height);
-	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))	
-}
-
-window.addEventListener('resize', onResize)
-onResize(); */
 
 
 function setupAnimation(){
+
+  console.log("loaded")
+
+  video = document.querySelector(".video-scrub")
+
+  //plane
+  const geometry = new THREE.PlaneGeometry( sizes.width, sizes.height );
+  const material = new THREE.MeshStandardMaterial( {color: 0xffffff, transparent: true, opacity: 1.0, envMapIntensity: 0});
+  plane = new THREE.Mesh( geometry, material );
+  plane.position.set(0, 0, -20);
+  plane.receiveShadow = true;
+  plane.castShadow = true;
+  scene.add( plane );
+
   specta = models.specta
   basetta = models.basetta
   specta.children[0].children[0].material.envMapIntensity = 0
@@ -224,18 +230,15 @@ function setupAnimation(){
   models.mac.rotation.y = -0.5
   models.tv.rotation.y = 0.5
 
-  
   models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.envMapIntensity = 0;
 
   desktopAnimation()
 
 }
 
-//gsap.from(".waves-container", {y:0})
+function desktopAnimation() {  
 
-function desktopAnimation() {
-
-  let video = document.querySelector(".video-scrub")
+  console.log("desktop animation")
 
   const tl = gsap.timeline({
     defaults : {
@@ -248,6 +251,8 @@ function desktopAnimation() {
       end: "bottom bottom",
       scrub: true,
     }
+
+  
   });
 
   let section = 0;
@@ -326,13 +331,10 @@ function desktopAnimation() {
   tl.to(models.tv.position, {x:-100}, '<')
   tl.to(models.tv.rotation, {y:-1.57}, '<')
   tl.to(basetta.position, {y:-40}, '<')
-  tl.to(specta.position, {y:-37}, '<')
+  tl.to(specta.position, {y:-37, z:0}, '<')
   tl.to(".all-devices", {y:"-2vh", opacity:0, duration: 1}, '<')
   tl.from(".app", {y:"2vh", opacity:0, duration: 1}, section + 0.5)
   tl.add(function() {
-    
-    var appTex = new THREE.TextureLoader().load('assets/dispositivi/iphone/textures/ekran_baseColor_1.png');
-    var waveTex = new THREE.TextureLoader().load('assets/dispositivi/iphone/textures/ekran_baseColor.png');
 
     waveTex.flipY = false;
 
@@ -362,67 +364,7 @@ function desktopAnimation() {
   tl.from(".buynow", {y:"20vh"},section + 1.5)
   section+=2; 
   
- 
-
-  
-  /* //specta si appoggia alla basetta per ricaricarsi
-  tl.to(specta.rotation, {x:1.57}, section)
-  tl.to(specta.position, {y:0, z:0}, '<')
-  tl.to(basetta.rotation, {x:1.57}, '<')
-  section +=2
-
-  //specta e la basetta si spostano a destra per lasciare spazio
-  tl.to(specta.position, {x:5, duration:1}, section)
-  tl.to(basetta.position, {x:5, duration:1}, '<') */
-
-
-}   
-
-/* 
-gsap.timeline({
-  scrollTrigger: {
-    trigger: ".sec1",
-    start: "-100% top",
-    endTrigger: ".sec3",
-    end: "center top",
-    scrub: 1,
-  }
-}).to(".waves-container", {y:"-270vh"})
-.to (".intro-text-container h1", {y: "-100vh"}, '<')
-
-
-
-gsap.utils.toArray(".video-scrub").forEach(video => videoScrub(video, {
-  scrollTrigger: {
-    trigger: video,
-    start: "center 50%-10px",
-    end: "+=200%",
-    pin: true,
-  }
-
-})); */
-
-/* 
-function videoScrub(video, vars) {
-  video = gsap.utils.toArray(video)[0]; // in case selector text is fed in.
-  let once = (el, event, fn) => {
-        let onceFn = function () {
-          el.removeEventListener(event, onceFn);
-          fn.apply(this, arguments);
-        };
-        el.addEventListener(event, onceFn);
-        return onceFn;
-      },
-      prepFunc = () => { video.play(); video.pause(); },
-      prep = () => once(document.documentElement, "touchstart", prepFunc),
-      src = video.currentSrc || video.src,
-      tween = gsap.fromTo(video, {currentTime: 0}, {paused: true, immediateRender: false, currentTime: video.duration || 1, ease: "none", ...vars}),
-      resetTime = () => (tween.vars.currentTime = video.duration || 1) && tween.invalidate();
-  prep();
-  video.readyState ? resetTime() : once(video, "loadedmetadata", resetTime);
-  return tween;
-} */
-
+}
 
 
 

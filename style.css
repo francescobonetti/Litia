@@ -14,11 +14,11 @@ body, html {
 }
 
 body {
-  margin: 10px;
+  margin: 10px 10px 0 10px;
   background-color: white;
 }
 
-p, a, ul, h3, h2, h1 {
+p, a, ul, h4, h3, h2, h1, input {
   font-family: 'Archivo';
   font-weight: 500;
   line-height: 120%;
@@ -27,7 +27,7 @@ p, a, ul, h3, h2, h1 {
   mix-blend-mode: difference;
 }
  
-header p, header a {
+p, a, input {
   font-weight: 400;
   font-size: 16px;
 }
@@ -47,6 +47,11 @@ h2 {
 }
 
 h3 {
+  font-size: 50px;
+  line-height: 100%;
+}
+
+h4 {
   font-size: 30px;
   line-height: 100%;
 }
@@ -95,7 +100,7 @@ header {
 }
 
 .header-right {
-  width: 15%;
+  width: 10%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -121,9 +126,54 @@ section {
   border-width: 2px;  */
 }
 
+@keyframes loading {
+  from {width: 20vh; height: 20vh;}
+  to {width: 12vh; height: 12vh;}
+}
+
+.loading {
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.loading.inactive {
+  opacity: 0;
+}
+
+.loading-logo {
+  width: 20vh ;
+  height: 20vh;
+}
+
+.loading-rect {
+  position: absolute;
+  background-color: white;
+  width: 20vh;
+  height: 20vh;
+  transform: rotate(45deg);
+  animation-name: loading;
+  animation-duration: 2s; 
+  animation-timing-function: ease-in-out;
+}
+
+.loading-rect.inactive {
+  width: 10vh;
+  height: 10vh;
+}
+
 .text-container {position: fixed; height: 100vh; width: 100vw; mix-blend-mode: difference;}
 .under {z-index: -4;}
-.over {z-index: 0}
+.over {z-index: 9}
 
 .specta{
   width: 95%;
@@ -206,4 +256,11 @@ canvas {
   height: 100%;
   object-fit: cover;
   
+}
+
+.table-container {display: flex; margin: 1rem 0}
+.table-container p {width: 25vw;}
+
+footer {
+  margin-top: 7rem;
 }
