@@ -21,7 +21,7 @@ let loadingTl = gsap.timeline({
 });
 
 
-console.log("loading started")
+
   loadingTl.to(".loading-rect", {width:"12vh", height: "12vh"})
   loadingTl.call(loop)
 
@@ -30,7 +30,7 @@ let iphoneTex = "wave";
 
 const toLoad = [
   {name: "specta", file: "assets/specta/Specta.gltf", group: new THREE.Group()},
-  {name: "basetta", file: "assets/basetta/Basetta.gltf", group: new THREE.Group()},
+  {name: "basetta", file: "assets/basetta/basetta.gltf", group: new THREE.Group()},
   {name: "iphone", file: "assets/dispositivi/iphone/scene.gltf", group: new THREE.Group()},
   {name: "mac", file: "assets/dispositivi/mac/scene.gltf", group: new THREE.Group()},
   {name: "tv", file: "assets/dispositivi/tv/scene.gltf", group: new THREE.Group()}
@@ -41,7 +41,7 @@ const models = {};
 const LoadingManager = new THREE.LoadingManager
 
 //LoadingManager.onStart = loadingAnimation;
-LoadingManager.onProgress = function(url, loaded, total) {console.log(loaded)}
+LoadingManager.onProgress = function(url, loaded, total) {}
 LoadingManager.onLoad = setupAnimation;
 
 const gltfLoader = new GLTFLoader(LoadingManager)
@@ -194,7 +194,6 @@ function loop() {
 
 function setupAnimation(){
 
-  console.log("loaded")
 
   video = document.querySelector(".video-scrub")
 
@@ -235,7 +234,6 @@ function setupAnimation(){
 
 function desktopAnimation() {  
 
-  console.log("desktop animation")
 
   const tl = gsap.timeline({
     defaults : {
