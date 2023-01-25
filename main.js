@@ -1,7 +1,5 @@
 import './style.css'
 import * as THREE from 'three';
-/* import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger.js'; */
 gsap.registerPlugin(ScrollTrigger);
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
