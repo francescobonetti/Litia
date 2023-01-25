@@ -1,4 +1,4 @@
-import * as THREE from '/Litia/node_modules/three/build/three.module.js';
+import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js';
 gsap.registerPlugin(ScrollTrigger);
 import { RGBELoader } from '/Litia/node_modules/three/examples/jsm/loaders/RGBELoader.js';
 import { GLTFLoader } from '/Litia/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
