@@ -1,4 +1,4 @@
-import * as THREE from '/node_modules/three/build/three.module.js';
+/* import * as THREE from '/node_modules/three/build/three.module.js';
 gsap.registerPlugin(ScrollTrigger);
 import { RGBELoader } from '/node_modules/three/examples/jsm/loaders/RGBELoader.js';
 import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
@@ -375,3 +375,4 @@ function desktopAnimation() {
 
 
 
+ */
