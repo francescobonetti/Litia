@@ -1,4 +1,4 @@
-import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js';
+import * as THREE from 'https://cdn.skypack.dev/three@0.133.1/build/three.module.js';
 gsap.registerPlugin(ScrollTrigger);
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.133.1/examples/jsm/loaders/RGBELoader.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.133.1/examples/jsm/loaders/GLTFLoader.js';
