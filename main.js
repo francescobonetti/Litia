@@ -1,8 +1,7 @@
-import './style.css'
-import * as THREE from 'three';
+import * as THREE from '/node_modules/three/build/three.module.js';
 gsap.registerPlugin(ScrollTrigger);
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { RGBELoader } from '/node_modules/three/examples/jsm/loaders/RGBELoader.js';
+import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 const hdrTextureURL = new URL('assets/Immagini/brown_photostudio_07_1k.hdr', import.meta.url); 
 const scene = new THREE.Scene();
 
