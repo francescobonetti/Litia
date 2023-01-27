@@ -1,5 +1,5 @@
 let mobileMenu = document.querySelector(".mobile-menu")
-let mobileMenuLinks = document.querySelectorAll(".mobile-menu ul a")
+let mobileMenuLinks = document.querySelectorAll(".mobile-menu li a")
 
 function openMobileMenu () {
     mobileMenu.classList.add("active")

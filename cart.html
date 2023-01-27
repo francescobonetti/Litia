@@ -18,20 +18,41 @@
     
     <!-- header -->
     <header>
+      
       <div class="header-left">
-        <div class="logo"><a href="index.html#sec0"><img src="assets\Immagini\Litia-logo-bianco.png" alt=""></div></a>
-        <li class="menu-left">
-          <ul><a href="index.html#sec3">Specta</a></ul>
+        <div class="logo"><a href="#sec0"><img src="assets\Immagini\Litia-logo-bianco.png" alt=""></div></a>
+        <li class="desktop-menu menu-left">
+          <ul><a href="#sec3">Specta</a></ul>
           <ul><a>About</a></ul>
         </li>
       </div>
       
       
-      <div class="header-right">
+      <div class="desktop-menu menu-right">
           <a href="login.html">Login</a>
           <a href="cart.html">Cart | 0</a>
       </div>
+
+      <div class="burger-menu" onclick="openMobileMenu()">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+      </div>
+      
     </header>
+
+    <div class="mobile-menu">
+      <div class="cross" onclick="closeMobileMenu()">
+        <div class="cross-line"></div>
+        <div class="cross-line"></div>
+      </div>
+      <li><a href="#sec3">Specta</a></li>
+      <div class="divider"></div>
+      <li><a>About</a></li>
+      <div class="divider"></div>
+      <li><a href="login.html">Login</a></li>
+      <div class="divider"></div>
+      <li><a href="Cart.html">Cart | 0</a></li>
+    </div>
     
 
     <div class="header-placeholder"></div>
@@ -78,6 +99,7 @@
         </div>
     </footer>
 
-   
+    <script src="app.js"></script>
+    
   </body>
 </html>
