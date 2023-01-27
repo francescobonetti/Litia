@@ -12,7 +12,7 @@ let video;
 let loading = document.querySelector(".loading");
 let camera;
 
-var mobileX = window.matchMedia("(max-width: 700px)")
+var mobileX = window.matchMedia("(max-width: 768px)")
 
 let loadingTl = gsap.timeline({
   defaults : {
@@ -114,7 +114,7 @@ hdriloader.load(hdrTextureURL, function(texture) {
 })
 
 //camera
-camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 0.1, 100);
+camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 0.1, 200);
 
 camera.position.set(0, 0, sizes.camera);
 console.log(camera.position)
@@ -147,11 +147,10 @@ function loop() {
   startLeftLight.position.y = -movelights.value *  10 * Math.cos(Date.now() / 2000);
   startLeftLight.position.x = -movelights.value *  10 * Math.sin(Date.now() / 2000);
   
-
   loading.classList.add("inactive")
   loadingTl.to(".loading", {"z-index": -2})
   
-  
+  console.log(specta.position)
 }
 
 function mapRange (value, a, b, c, d) {
@@ -181,16 +180,17 @@ function setupAnimation(){
   specta.rotation.set(1.7, -0.12, 0);
   basetta.position.set(0, -40, 0);
 
-  models.iphone.scale.set(7,7,7)
-  models.mac.scale.set(7,7,7)
-  models.tv.scale.set(3.2,3.2,3.2)
+  models.iphone.scale.set(mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7))
+  models.mac.scale.set(mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7))
+  models.tv.scale.set(mapRange(sizes.width, 400, 1000, 2.1, 3.2), mapRange(sizes.width, 400, 1000, 2.1, 3.2), mapRange(sizes.width, 400, 1000, 2.1, 3.2))
 
-  models.mac.position.set(35, -10, -60)
-  models.tv.position.set(-35, 1, -60)
-  models.iphone.position.set(0, 2,-60)
+  models.mac.position.set(100, -10, -60)
+  models.tv.position.set(-100, 1, -60)
+  models.iphone.position.set(0, 30, 20)
 
-  models.mac.rotation.y = -0.5
-  models.tv.rotation.y = 0.5
+  models.mac.rotation.y = 1.57
+  models.tv.rotation.y = -1.57
+  models.iphone.rotation.x = -2
 
   models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.envMapIntensity = 0;
 
@@ -200,7 +200,6 @@ function setupAnimation(){
 }
 
 function desktopAnimation() {  
-
 
   const tl = gsap.timeline({
     defaults : {
@@ -229,9 +228,9 @@ function desktopAnimation() {
 
  
   //si appoggia sulla basetta
-  tl.to(specta.rotation, {x:0, y:1.57, z:0}, section)
-  tl.to(specta.position, {x:0, y:-2.55, z:0}, '<')
-  tl.to(basetta.position, {x:0, y:-5.5, z:0}, '<')
+  tl.to(specta.rotation, {x:0, y: 1.57, z:0}, section)
+  tl.to(specta.position, {x:0, y:-2.05, z:0}, '<')
+  tl.to(basetta.position, {x:0, y:-5, z:0}, '<')
   tl.from("body", {backgroundColor: "black"}, '<')
   tl.from(".specta", {y: "100vh", duration:1}, section+1)
   section += 2;
@@ -239,7 +238,7 @@ function desktopAnimation() {
   //ruota per far spazio al testo
   tl.to(specta.position, {x:4, y:-1}, section+0.5)
   tl.to(basetta.position, {x:4, y:-4.05}, '<')
-  tl.to(".specta", {y: "-50vh", duration:1}, section+0.5)
+  tl.to(".specta", {y: "-100vh", duration:1}, section+0.5)
   tl.from(".personal-silencer", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
   
@@ -260,29 +259,29 @@ function desktopAnimation() {
   //la basetta scende 
   tl.to(basetta.rotation, {x:1.57, y:1.57}, section)
   tl.to(specta.position, {x:0, y:20, z:0}, '<')
-  tl.to(basetta.position, {x:5}, '<')
+  tl.to(basetta.position, {x:5, y: 0.5}, '<')
   tl.to(".video-container", {y: "-100vh"}, '<')
   tl.add(function() {video.pause()}, section)
   tl.from(".plug-and-play", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
 
   //la basetta va in centro e entrano i dispositivi
-  tl.to(basetta.position, {x:0, y:-18, z:-40}, section)
-  tl.to(basetta.rotation, {x:0, y:0, z:0}, '<')
-  tl.to(specta.position, {x:0, y:-15, z:-40}, '<')
-  tl.to(specta.rotation, {x:0, y:0, z:0}, '<')
-  tl.from(models.mac.position, {x:100}, '<')
-  tl.from(models.mac.rotation, {y:1.57}, '<')
-  tl.from(models.tv.position, {x:-100}, '<')
-  tl.from(models.tv.rotation, {y:-1.57}, '<')
-  tl.from(models.iphone.position, {z:40, y:30, duration: 1.5}, section + 0.5)
-  tl.from(models.iphone.rotation, {x:-3, duration: 1.5}, '<')
-  tl.from(".all-devices", {y:"2vh", opacity:0, duration: 1}, '<')
+  tl.to(basetta.position, {x:0, y:-18, z:-50}, section)
   tl.to(".plug-and-play", {y:"-2vh", opacity:0, duration: 1}, '<')
+  tl.to(basetta.rotation, {x:0, y:0, z:0}, '<')
+  tl.to(specta.position, {x:0, y:-15, z:-50}, '<')
+  tl.to(specta.rotation, {x:0, y:0, z:0}, '<')
+  tl.to(models.mac.position, {x:30}, '<')
+  tl.to(models.mac.rotation, {y:-0.5}, '<')
+  tl.to(models.tv.position, {x:-30}, '<')
+  tl.to(models.tv.rotation, {y:0.5}, '<')
+  tl.to(models.iphone.position, {z:-60, y:2, duration: 1.5}, section + 0.5)
+  tl.to(models.iphone.rotation, {x:0, duration: 1.5}, '<')
+  tl.from(".all-devices", {y:"2vh", opacity:0, duration: 1}, '<')
   section +=2
 
   //il telefono viene avanti per mostrare l'app
-  tl.to(models.iphone.position, {x:-18, y:0, z:-20}, section)
+  tl.to(models.iphone.position, {x:-18, y:1, z:-20}, section)
   tl.to(models.iphone.rotation, {y:7.28, x:-0.2, z:0.3}, section)
   tl.to(models.mac.position, {x:100}, '<')
   tl.to(models.mac.rotation, {y:1.57}, '<')
@@ -314,13 +313,13 @@ function desktopAnimation() {
 //telefono esce
   tl.to(".app", {y:"-80vh", opacity: 0}, section);
   tl.to(models.iphone.position, {y: 40, duration: 1.5}, section + 0.5);
-  tl.to(models.iphone, {opacity: 0}, '<');
-  
+
 //due colorazioni
   tl.to(specta.rotation, {x:1.7, y:-0.12, z:0},'<')
-  tl.to(specta.position, {x:0, y:1, z:0},'<')
+  tl.to(specta.position, {x:0, y:2, z:-5},'<')
   tl.from(".buynow", {y:"20vh"},section + 1.5)
   section+=2; 
+
   
 }
 
@@ -355,22 +354,22 @@ function mobileAnimation() {
  
   //si appoggia sulla basetta
   tl.to(specta.rotation, {x:0, y:1.57, z:0}, section)
-  tl.to(specta.position, {x:0, y:-7.55, z:0}, '<')
-  tl.to(basetta.position, {x:0, y:-10.5, z:0}, '<')
+  tl.to(specta.position, {x:0, y:-2.55, z:0}, '<')
+  tl.to(basetta.position, {x:0, y:-5.5, z:0}, '<')
   tl.from("body", {backgroundColor: "black"}, '<')
-  tl.from(".specta", {y: "100vh", duration:1}, section+1)
+  tl.from(".specta", {y: "70vh", duration:1}, section+1)
   section += 2;
   
-  //ruota per far spazio al testo
-  tl.to(specta.position, {x:4, y:-1}, section+0.5)
-  tl.to(basetta.position, {x:4, y:-4.05}, '<')
-  tl.to(".specta", {y: "-50vh", duration:1}, section+0.5)
+  //sale per far spazio al testo
+  tl.to(specta.position, { y:4.5}, section+0.5)
+  tl.to(basetta.position, { y:1.55}, '<')
+  tl.to(".specta", {y: "-60vh", duration:1}, section+0.5)
   tl.from(".personal-silencer", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
   
   //sale coperta dal video
-  tl.to(specta.position, {y:1}, section+0.5)
-  tl.to(basetta.position, {y:-1.05}, '<')
+  tl.to(specta.position, {y:6}, section+0.5)
+  tl.to(basetta.position, {y:2.55}, '<')
   tl.to(".personal-silencer", {y:"-10vh", opacity:0}, '<')
   tl.from(".video-container", {y: "100vh"}, '<')
   tl.add(function() {video.play()}, section)
@@ -384,37 +383,38 @@ function mobileAnimation() {
 
   //la basetta scende 
   tl.to(basetta.rotation, {x:1.57, y:1.57}, section)
-  tl.to(specta.position, {x:0, y:20, z:0}, '<')
-  tl.to(basetta.position, {x:5}, '<')
+  tl.to(specta.position, {x:0, y:30, z:0}, '<')
+  tl.to(basetta.position, {x:0, y: 7, z: -15}, '<')
   tl.to(".video-container", {y: "-100vh"}, '<')
   tl.add(function() {video.pause()}, section)
   tl.from(".plug-and-play", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
 
+
   //la basetta va in centro e entrano i dispositivi
   tl.to(basetta.position, {x:0, y:-18, z:-40}, section)
+  tl.to(".plug-and-play", {y:"5vh", opacity:0, duration: 1}, '<')
   tl.to(basetta.rotation, {x:0, y:0, z:0}, '<')
   tl.to(specta.position, {x:0, y:-15, z:-40}, '<')
   tl.to(specta.rotation, {x:0, y:0, z:0}, '<')
-  tl.from(models.mac.position, {x:100}, '<')
-  tl.from(models.mac.rotation, {y:1.57}, '<')
-  tl.from(models.tv.position, {x:-100}, '<')
-  tl.from(models.tv.rotation, {y:-1.57}, '<')
-  tl.from(models.iphone.position, {z:40, y:30, duration: 1.5}, section + 0.5)
-  tl.from(models.iphone.rotation, {x:-3, duration: 1.5}, '<')
+  tl.to(models.mac.position, {x:16, y: -5, z: -100}, '<')
+  tl.to(models.mac.rotation, {y:0.8}, '<')
+  tl.to(models.tv.position, {x:-15, z: -100}, '<')
+  tl.to(models.tv.rotation, {y:-0.8}, '<')
+  tl.to(models.iphone.position, {z:-60, y:2, duration: 1.5}, section + 0.5)
+  tl.to(models.iphone.rotation, {x:0, duration: 1.5}, '<')
   tl.from(".all-devices", {y:"2vh", opacity:0, duration: 1}, '<')
-  tl.to(".plug-and-play", {y:"-2vh", opacity:0, duration: 1}, '<')
   section +=2
 
   //il telefono viene avanti per mostrare l'app
-  tl.to(models.iphone.position, {x:-18, y:0, z:-20}, section)
-  tl.to(models.iphone.rotation, {y:7.28, x:-0.2, z:0.3}, section)
+  tl.to(models.iphone.position, {x:0, y:7, z:0}, section)
+  tl.to(models.iphone.rotation, {y:6.28}, section)
   tl.to(models.mac.position, {x:100}, '<')
   tl.to(models.mac.rotation, {y:1.57}, '<')
   tl.to(models.tv.position, {x:-100}, '<')
   tl.to(models.tv.rotation, {y:-1.57}, '<')
-  tl.to(basetta.position, {y:-40}, '<')
-  tl.to(specta.position, {y:-37, z:0}, '<')
+  tl.to(basetta.position, {y:-55}, '<')
+  tl.to(specta.position, {y:-52}, '<')
   tl.to(".all-devices", {y:"-2vh", opacity:0, duration: 1}, '<')
   tl.from(".app", {y:"2vh", opacity:0, duration: 1}, section + 0.5)
   tl.add(function() {
@@ -438,30 +438,27 @@ function mobileAnimation() {
 
 //telefono esce
   tl.to(".app", {y:"-80vh", opacity: 0}, section);
-  tl.to(models.iphone.position, {y: 40, duration: 1.5}, section + 0.5);
+  tl.to(specta.position, {z:15}, section - 1 )
+  tl.to(models.iphone.position, {y: 70, duration: 1.5}, section + 0.2);
   tl.to(models.iphone, {opacity: 0}, '<');
   
 //due colorazioni
   tl.to(specta.rotation, {x:1.7, y:-0.12, z:0},'<')
-  tl.to(specta.position, {x:0, y:1, z:0},'<')
-  tl.from(".buynow", {y:"20vh"},section + 1.5)
+  tl.to(specta.position, {x:0, y:2, z:15},'<')
+  tl.from(".buynow", {y:"40vh"},section + 0.75)
   section+=2; 
-  
+ 
 }
 
 
-window.addEventListener( 'resize', onWindowResize, false );
+//window.addEventListener( 'resize', onWindowResize, false);
 
 function onWindowResize(){
 
-
-  /*   container.getBoundingClientRect().height = "100vh"
-    renderer.domElement.getBoundingClientRect().height = "100vh" */
-
-    camera.aspect = window.innerWidth / (window.innerHeight * 1.1) ;
+    camera.aspect = window.innerWidth / window.innerHeight ;
     camera.updateProjectionMatrix();
 
-    renderer.setSize( window.innerWidth, (window.innerHeight * 1.1) );
+    renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
 
