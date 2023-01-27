@@ -12,3 +12,13 @@ function closeMobileMenu () {
 mobileMenuLinks.forEach(function(link) {
     link.addEventListener("click", closeMobileMenu)
 })
+
+
+let spectaSection = document.getElementById("sec3")
+let body = document.querySelector("body")
+
+function goToSpecta() {
+    console.log("go to specta")
+    let spectaY = spectaSection.getBoundingClientRect().y
+    window.scrollTo(0, spectaY, { duration: 10000 })
+}

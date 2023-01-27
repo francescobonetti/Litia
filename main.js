@@ -198,8 +198,8 @@ function setupAnimation(){
 
   setTimeout(() => {
     loading.classList.add("inactive")
-    loadingTl.to(".loading", {"z-index": -2})
-  }, 1000);
+    loadingTl.to(".loading", {"display": "none"})
+  }, 2000);
   
 
 }

@@ -260,6 +260,10 @@ animation-name: loadingp; animation-duration: 2s; animation-iteration-count: inf
   overflow-y: scroll; 
 }
 
+.sec0 {
+  z-index: 9;
+}
+
 .sec3 {
   display: flex;
   position: relative;
