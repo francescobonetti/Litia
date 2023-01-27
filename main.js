@@ -147,10 +147,8 @@ function loop() {
   startLeftLight.position.y = -movelights.value *  10 * Math.cos(Date.now() / 2000);
   startLeftLight.position.x = -movelights.value *  10 * Math.sin(Date.now() / 2000);
   
-  loading.classList.add("inactive")
-  loadingTl.to(".loading", {"z-index": -2})
+
   
-  console.log(specta.position)
 }
 
 function mapRange (value, a, b, c, d) {
@@ -167,6 +165,7 @@ function mapRange (value, a, b, c, d) {
 
 function setupAnimation(){
 
+ 
 
   video = document.querySelector(".video-scrub")
 
@@ -196,6 +195,12 @@ function setupAnimation(){
 
   if(mobileX.matches){ mobileAnimation() }
   else {desktopAnimation()}
+
+  setTimeout(() => {
+    loading.classList.add("inactive")
+    loadingTl.to(".loading", {"z-index": -2})
+  }, 1000);
+  
 
 }
 
@@ -315,12 +320,13 @@ function desktopAnimation() {
   tl.to(models.iphone.position, {y: 40, duration: 1.5}, section + 0.5);
 
 //due colorazioni
-  tl.to(specta.rotation, {x:1.7, y:-0.12, z:0},'<')
+  tl.to(specta.rotation, {x:1.7, y:-0.12, z:0}, section)
   tl.to(specta.position, {x:0, y:2, z:-5},'<')
-  tl.from(".buynow", {y:"20vh"},section + 1.5)
+  tl.from(".buynow", {y:"100vh", delay: 0.3}, '<')
   section+=2; 
 
-  
+  tl.to(specta.position, {y: 5, duration: 0.5}, section + 0.5)
+  tl.to(".buynow", {y: "-15vh", duration: 0.5}, '<')
 }
 
 function mobileAnimation() {  
@@ -392,16 +398,16 @@ function mobileAnimation() {
 
 
   //la basetta va in centro e entrano i dispositivi
-  tl.to(basetta.position, {x:0, y:-18, z:-40}, section)
+  tl.to(basetta.position, {x:0, y:-21, z:-40}, section)
   tl.to(".plug-and-play", {y:"5vh", opacity:0, duration: 1}, '<')
   tl.to(basetta.rotation, {x:0, y:0, z:0}, '<')
-  tl.to(specta.position, {x:0, y:-15, z:-40}, '<')
+  tl.to(specta.position, {x:0, y:-18, z:-40}, '<')
   tl.to(specta.rotation, {x:0, y:0, z:0}, '<')
-  tl.to(models.mac.position, {x:16, y: -5, z: -100}, '<')
+  tl.to(models.mac.position, {x:16, y: -10, z: -100}, '<')
   tl.to(models.mac.rotation, {y:0.8}, '<')
-  tl.to(models.tv.position, {x:-15, z: -100}, '<')
+  tl.to(models.tv.position, {x:-15, y: -4,  z: -100}, '<')
   tl.to(models.tv.rotation, {y:-0.8}, '<')
-  tl.to(models.iphone.position, {z:-60, y:2, duration: 1.5}, section + 0.5)
+  tl.to(models.iphone.position, {z:-60, y:-3, duration: 1.5}, section + 0.5)
   tl.to(models.iphone.rotation, {x:0, duration: 1.5}, '<')
   tl.from(".all-devices", {y:"2vh", opacity:0, duration: 1}, '<')
   section +=2
@@ -443,15 +449,17 @@ function mobileAnimation() {
   tl.to(models.iphone, {opacity: 0}, '<');
   
 //due colorazioni
-  tl.to(specta.rotation, {x:1.7, y:-0.12, z:0},'<')
+  tl.to(specta.rotation, {x:1.7, y:-0.12, z:0}, section)
   tl.to(specta.position, {x:0, y:2, z:15},'<')
-  tl.from(".buynow", {y:"40vh"},section + 0.75)
+  tl.from(".buynow", {y:"40vh", delay: 0.3}, '<')
   section+=2; 
- 
+  
+  tl.to(specta.position, {y: 6, duration: 0.5}, section + 0.5)
+  tl.to(".buynow", {y: "-20vh", duration: 0.5}, '<')
 }
 
 
-//window.addEventListener( 'resize', onWindowResize, false);
+window.addEventListener( 'resize', onWindowResize, false);
 
 function onWindowResize(){
 

@@ -205,13 +205,24 @@ section {
   height: 10vh;
 }
 
+.loading p { position: absolute; bottom: 10%; text-align: center; width: 100%;
+animation-name: loadingp; animation-duration: 2s; animation-iteration-count: infinite;}
+
+@keyframes loadingp {
+
+  0% {opacity: 0}
+  30% {opacity: 1}
+  70% {opacity: 1}
+  100% {opacity: 0}
+}
+
 .text-container {position: fixed; height: 100vh; width: 100vw; mix-blend-mode: difference;}
 .under {z-index: -4;}
 .over {z-index: 9}
 
 
 .intro-text-container {display: flex; flex-direction: column; align-items: center;}
-.intro-text-container h2 {max-width: 58%; text-align: center; margin-bottom: 3rem; font-size: clamp(45px, 20px + 3vw, 80px);}
+.intro-text-container h2 {max-width: 58%; text-align: center; margin-bottom: 3rem; font-size: clamp(40px, 20px + 3vw, 80px);}
 
 .specta{
   width: 95%;
@@ -295,6 +306,7 @@ footer {
 }
 
 footer .divider {margin: 10px;}
+
 
 
 @media only screen and (max-width: 768px) {
