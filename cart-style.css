@@ -83,7 +83,7 @@ section {
     .gallery :nth-child(n) {width: 100%; height: 70vh; flex: none; scroll-snap-align: center;
     }
 
-    img {animation-name: zoomin ; animation-duration: 5s; animation-iteration-count: infinite;}
+    img { animation-name: zoomin ; animation-duration: 5s; }
 
     @keyframes zoomin {
         from {scale: 1;} 

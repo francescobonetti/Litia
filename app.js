@@ -38,8 +38,8 @@ if (mobileX.matches) {
 function scrollGallery() {
     setInterval(function(){
         galleryIndex ++
-        if (galleryIndex == galleryImg.length) {galleryIndex = 0}
-        gallery.scrollTo(imageW * galleryIndex, 0)
+        if (galleryIndex == galleryImg.length) {gallery.scrollTo({top: 0, left: 0, behavior: "auto"})}
+        else{ gallery.scrollTo(imageW * galleryIndex, 0)}
     }, 5000)
 }
 

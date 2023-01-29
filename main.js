@@ -5,6 +5,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.133.1/examples/jsm/l
 const hdrTextureURL = new URL('assets/Immagini/brown_photostudio_07_1k.hdr', import.meta.url); 
 const scene = new THREE.Scene();
 
+
 let specta;
 let basetta;
 let movelights = {value: 1};
