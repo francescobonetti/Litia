@@ -34,8 +34,7 @@ p, a, ul, h4, h3, h2, h1, input {
   font-weight: 500;
   line-height: 100%;
   text-align: left;
-  color: white;
-  mix-blend-mode: difference;
+  color: black;
 }
  
 p, a, input { font-size: var(--fs-s); font-weight: 400; line-height: 120%; }
@@ -53,7 +52,7 @@ h4 {  font-size: 30px; }
 .button {
   text-align: center;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
   padding: 0.5em;
   width: fit-content;
   cursor: pointer;
@@ -70,7 +69,10 @@ h4 {  font-size: 30px; }
 }
 
 .nowrap { white-space: nowrap; }
-
+.whitetext {color: white;}
+.spacebetween {display: flex; justify-content: space-between;}
+.spacearound {display: flex; justify-content: space-around;}
+.align-center {align-items: center;}
 
 header {
   width: calc(100% - 20px) ;
@@ -216,7 +218,7 @@ animation-name: loadingp; animation-duration: 2s; animation-iteration-count: inf
   100% {opacity: 0}
 }
 
-.text-container {position: fixed; height: 100vh; width: 100vw; mix-blend-mode: difference;}
+.text-container {position: fixed; height: 100vh; width: 100vw;}
 .under {z-index: -4;}
 .over {z-index: 9}
 
@@ -293,7 +295,7 @@ canvas {
   position: fixed;
   top: calc(7vh + 10px);
   left: 0;
-  z-index: 3;
+  z-index: 10;
 }
 
 .video-scrub {
@@ -307,6 +309,7 @@ canvas {
 
 footer {
   border-top: solid 1px;
+  margin-top: 60px;
 }
 
 footer .divider {margin: 10px;}

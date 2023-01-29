@@ -17,12 +17,17 @@ header p, header a {
 
 .header-placeholder {height: calc(6vh);}
 
-.image-container {
-    width: 100%;
-    height: 40vh;
-    overflow: hidden;
-    margin-bottom: 1rem;
+.product-text {width: 50%;}
+
+.product-text h1 {font-size: 10.25vw;}
+
+.table-container p {max-width: 33%;}
+
+.price {
+    margin: 100px 0;
 }
+
+.price :nth-child(n) {margin: 30px 0;}
 
 .header-placeholder {margin-bottom: 1rem;}
 
@@ -34,5 +39,53 @@ section {
     margin: 3rem 0
 }
 
+.gallery {
+    width: auto; margin-right: 20px;
+    display: grid; gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 20px;
+}
+
+.gallery :nth-child(n) {overflow: hidden; transition: 1s;}
+
+.gallery :nth-child(n) :hover {scale: 1.02;}
+
+.span-1 {height: 50vh;}
+
+.span-2 {
+    grid-column: span 2;
+    height: 89vh
+}
 
 
+
+@media only screen and (max-width: 768px) {
+
+    .product {flex-direction: column;}
+
+    .product-text {width: 100%;}
+
+    .product-text h1 { font-size: 20vw; }
+
+    .table-container {justify-content: space-between;}
+
+    .table-container p {width: 45%; max-width: none; flex: none;}
+
+    .specs :nth-child(9) :nth-child(1) {display: none;}
+
+    .gallery {margin-right: 0; display: flex; overflow: auto; gap: 0px;
+        scroll-snap-type: x mandatory;}
+
+    .gallery:-webkit-scrollbar {display: none;}
+
+    .gallery :nth-child(n) {width: 100%; height: 70vh; flex: none; scroll-snap-align: center;
+    }
+
+    img {animation-name: zoomin ; animation-duration: 5s; animation-iteration-count: infinite;}
+
+    @keyframes zoomin {
+        from {scale: 1;} 
+        to {scale: 1.05;}       
+    }
+
+}
