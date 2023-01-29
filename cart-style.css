@@ -73,8 +73,10 @@ section {
 
     .specs :nth-child(9) :nth-child(1) {display: none;}
 
+    
+
     .gallery {margin-right: 0; display: flex; overflow: auto; gap: 0px;
-        scroll-snap-type: x mandatory;}
+        scroll-snap-type: x mandatory; scroll-behavior: smooth;}
 
     .gallery:-webkit-scrollbar {display: none;}
 
