@@ -10,6 +10,7 @@ let specta;
 let basetta;
 let movelights = {value: 1};
 let video = document.querySelector(".video-scrub")
+console.log(video)
 let loading = document.querySelector(".loading");
 let camera;
 
@@ -126,7 +127,7 @@ scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({alpha:true});
 const container = document.querySelector('.canvas-container');
-container.appendChild( renderer.domElement)
+container.appendChild( renderer.domElement )
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(window.devicePixelRatio)
 if(mobileX.matches) {
