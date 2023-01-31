@@ -25,7 +25,7 @@ body, html {
 }
 
 body {
-  margin: 10px 10px 0 10px;
+  padding: 10px 10px 0 10px;
   background-color: white;
 }
 
@@ -265,6 +265,8 @@ animation-name: loadingp; animation-duration: 2s; animation-iteration-count: inf
 .sec0 {
   z-index: 9;
 }
+
+.videosec {background-color: red; width: 100vw;}
 
 .sec3 {
   display: flex;

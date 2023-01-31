@@ -57,6 +57,8 @@ section {
     height: 89vh
 }
 
+.loop-image {display: none;}
+
 
 
 @media only screen and (max-width: 768px) {
@@ -82,6 +84,8 @@ section {
 
     .gallery :nth-child(n) {width: 100%; height: 70vh; flex: none; scroll-snap-align: center;
     }
+
+    .loop-image {display: block;}
 
     img { animation-name: zoomin ; animation-duration: 5s; }
 

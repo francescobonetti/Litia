@@ -9,7 +9,7 @@ const scene = new THREE.Scene();
 let specta;
 let basetta;
 let movelights = {value: 1};
-let video;
+let video = document.querySelector(".video-scrub")
 let loading = document.querySelector(".loading");
 let camera;
 
@@ -118,7 +118,6 @@ hdriloader.load(hdrTextureURL, function(texture) {
 camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 0.1, 200);
 
 camera.position.set(0, 0, sizes.camera);
-console.log(camera.position)
 let cameraTarget = new THREE.Vector3(0, 0, 0)
 scene.add(camera);
 
@@ -166,17 +165,12 @@ function mapRange (value, a, b, c, d) {
 
 function setupAnimation(){
 
- 
-
-  video = document.querySelector(".video-scrub")
-
   specta = models.specta
   basetta = models.basetta
   specta.children[0].children[0].material.envMapIntensity = 0
   basetta.children[0].children[0].material.envMapIntensity = 0
 
   specta.position.set( 0, -7, mapRange(sizes.width, 1000, 400, 3, 22));
-  console.log(specta.position)
   specta.rotation.set(1.7, -0.12, 0);
   basetta.position.set(0, -40, 0);
 
@@ -253,7 +247,7 @@ function desktopAnimation() {
   tl.to(basetta.position, {y:-1.05}, '<')
   tl.to(".personal-silencer", {y:"-10vh", opacity:0}, '<')
   tl.from(".video-container", {y: "100vh"}, '<')
-  tl.add(function() {video.play()}, section)
+  /* tl.add(function() {video.play()}, section) */
   section += 2;
   
   //in posizione per dopo il video
@@ -267,7 +261,7 @@ function desktopAnimation() {
   tl.to(specta.position, {x:0, y:20, z:0}, '<')
   tl.to(basetta.position, {x:5, y: 0.5}, '<')
   tl.to(".video-container", {y: "-100vh"}, '<')
-  tl.add(function() {video.pause()}, section)
+  /* tl.add(function() {video.pause()}, section) */
   tl.from(".plug-and-play", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
 
@@ -375,11 +369,10 @@ function mobileAnimation() {
   section +=2
   
   //sale coperta dal video
-  tl.to(specta.position, {y:6}, section+0.5)
-  tl.to(basetta.position, {y:2.55}, '<')
+  tl.to(specta.position, {y:7}, section+0.5)
+  tl.to(basetta.position, {y:4.55}, '<')
   tl.to(".personal-silencer", {y:"-10vh", opacity:0}, '<')
   tl.from(".video-container", {y: "100vh"}, '<')
-  tl.add(function() {video.play()}, section)
   section += 2;
   
   //in posizione per dopo il video
@@ -390,10 +383,9 @@ function mobileAnimation() {
 
   //la basetta scende 
   tl.to(basetta.rotation, {x:1.57, y:1.57}, section)
-  tl.to(specta.position, {x:0, y:30, z:0}, '<')
   tl.to(basetta.position, {x:0, y: 7, z: -15}, '<')
-  tl.to(".video-container", {y: "-100vh"}, '<')
-  tl.add(function() {video.pause()}, section)
+  tl.to(".video-container", {y: "-100vh"}, section - 1)
+  tl.to(specta.position, {x:0, y:30, z:0}, '<')
   tl.from(".plug-and-play", {y:"2vh", opacity:0, duration: 1}, section+1)
   section +=2
 
@@ -447,7 +439,6 @@ function mobileAnimation() {
   tl.to(".app", {y:"-80vh", opacity: 0}, section);
   tl.to(specta.position, {z:15}, section - 1 )
   tl.to(models.iphone.position, {y: 70, duration: 1.5}, section + 0.2);
-  tl.to(models.iphone, {opacity: 0}, '<');
   
 //due colorazioni
   tl.to(specta.rotation, {x:1.7, y:-0.12, z:0}, section)
@@ -470,6 +461,16 @@ function onWindowResize(){
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+
+ScrollTrigger.create({
+  trigger: ".secvideo",
+  onEnter: () => video.play(),
+  onEnterBack: () => video.play(),
+  onLeave: () => video.pause(),
+  onLeaveBack: () => video.pause(),
+  start: "center 90%"
+});
 
 
 
