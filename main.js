@@ -10,7 +10,6 @@ let specta;
 let basetta;
 let movelights = {value: 1};
 let video = document.querySelector(".video-scrub")
-console.log(video)
 let loading = document.querySelector(".loading");
 let camera;
 
@@ -445,10 +444,12 @@ function mobileAnimation() {
   tl.to(specta.rotation, {x:1.7, y:-0.12, z:0}, section)
   tl.to(specta.position, {x:0, y:2, z:15},'<')
   tl.from(".buynow", {y:"40vh", delay: 0.3}, '<')
-  section+=2; 
   
-  tl.to(specta.position, {y: 6, duration: 0.5}, section + 0.5)
-  tl.to(".buynow", {y: "-20vh", duration: 0.5}, '<')
+  
+  section+=2; 
+  tl.to(specta.position, {y: 4, duration: 0.5}, section + 0.5)
+  tl.to(".buynow", {y: "-10vh", duration: 0.5}, '<')
+  tl.from("footer", {y: "100%", duration: 0.5}, '<')
 }
 
 
