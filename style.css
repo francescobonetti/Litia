@@ -286,7 +286,7 @@ canvas {
   left: 0;
   z-index: -3;
   opacity: 1; 
-  transition: 1s;
+  /* transition: 1s; */
 }
 
 
