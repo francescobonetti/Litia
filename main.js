@@ -10,6 +10,7 @@ let specta;
 let basetta;
 let movelights = {value: 1};
 let video = document.querySelector(".video-scrub")
+console.log(video)
 let loading = document.querySelector(".loading");
 let camera;
 
