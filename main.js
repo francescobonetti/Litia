@@ -449,7 +449,7 @@ function mobileAnimation() {
   section+=2; 
   tl.to(specta.position, {y: 4, duration: 0.5}, section + 0.5)
   tl.to(".buynow", {y: "-10vh", duration: 0.5}, '<')
-  tl.from("footer", {y: "100%", duration: 0.5}, '<')
+  tl.from("footer", {y: "120%", duration: 0.5}, '<')
 }
 
 
