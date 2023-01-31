@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="cart-style.css">
+    <link rel="stylesheet" href="product-style.css">
     <link rel="stylesheet" href="login-style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +23,8 @@
       <div class="header-left">
         <div class="logo"><a href="index.html#sec0"><img src="assets\Immagini\Litia-logo-bianco.png" alt=""></div></a>
         <li class="desktop-menu menu-left">
-          <ul><a href="#sec3"class="whitetext" >Specta</a></ul>
-          <!-- <ul><a class="whitetext" >About</a></ul> -->
+          <ul><a href="specta.html" class="whitetext" >Specta</a></ul>
+          <ul><a href="about.html" class="whitetext" >About</a></ul>
         </li>
       </div>
       
@@ -46,9 +46,9 @@
         <div class="cross-line"></div>
         <div class="cross-line"></div>
       </div>
-      <li><a href="#sec3">Specta</a></li>
-      <!-- <div class="divider"></div>
-      <li><a>About</a></li> -->
+      <li><a href="specta.html">Specta</a></li>
+      <div class="divider"></div>
+      <li href="about.html"><a>About</a></li>
       <div class="divider"></div>
       <li><a href="login.html">Login</a></li>
       <div class="divider"></div>
@@ -73,22 +73,23 @@
     </section>
     
     
-    <footer>
+    <footer style="position: absolute; bottom: 10px; width: calc(100% - 20px);">
 
-      <div class="footer-top table-container">
+      <div class="footer-top table-container footer-table">
         <p>info@litia.com</p>
         <p>22 Needham RoadLondon <br>United Kingdom</p>
       </div>
 
       <div class="divider"></div>
       
-      <div class="footer-bottom table-container">
+      <div class="footer-bottom table-container footer-table">
         <p>© 2023 Litia</p>
         <p>Terms & Conditions</p>
         <p>Cookies</p>
         <p>English (UK)</p>
       </div>
-    </footer>    
+      
+    </footer>        
 
    
     <script src="app.js"></script>

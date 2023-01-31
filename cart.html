@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" href="/assets/logo.svg" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
 
     <link rel="stylesheet" href="style.css">
@@ -22,8 +22,8 @@
       <div class="header-left">
         <div class="logo"><a href="index.html#sec0"><img src="assets\Immagini\Litia-logo-bianco.png" alt=""></div></a>
         <li class="desktop-menu menu-left">
-          <ul><a href="#sec3"class="whitetext" >Specta</a></ul>
-          <!-- <ul><a class="whitetext" >About</a></ul> -->
+          <ul><a href="specta.html" class="whitetext" >Specta</a></ul>
+          <ul><a href="about.html" class="whitetext" >About</a></ul>
         </li>
       </div>
       
@@ -45,9 +45,9 @@
         <div class="cross-line"></div>
         <div class="cross-line"></div>
       </div>
-      <li><a href="#sec3">Specta</a></li>
-      <!-- <div class="divider"></div>
-      <li><a>About</a></li> -->
+      <li><a href="specta.html">Specta</a></li>
+      <div class="divider"></div>
+      <li href="about.html"><a>About</a></li>
       <div class="divider"></div>
       <li><a href="login.html">Login</a></li>
       <div class="divider"></div>
@@ -60,44 +60,69 @@
     <h3>Your Cart</h3>
     <div class="divider"></div>
 
-    <section>
-    <p>You have 1 item in your cart</p>
-    <div class="divider"></div>
-    <div class="table-container">
-      <p>Item</p>
-      <p>Price</p>
-      <p>Quantity</p>
-      <p>Total excl. VAT</p>
-    </div>
-    <div class="divider"></div>
-    <div class="table-container">
-      <p>Specta</p>
-      <p>£ 399</p>
-      <p>-  1  +</p>
-      <p>£ 418.80</p>
-    </div>
+    <section class="desktop-cart">
+      <p>You have 1 item in your cart</p>
+      <div class="divider"></div>
+      <div class="table-container">
+        <p>Item</p>
+        <p>Price</p>
+        <p>Quantity</p>
+        <p>Total excl. VAT</p>
+      </div>
+      <div class="divider"></div>
+      <div class="table-container">
+        <p>Specta White</p>
+        <p>£ 399</p>
+        <p>-  1  +</p>
+        <p>£ 418.80</p>
+      </div>
+    </section>
+
+    <section class="mobile-cart">
+      <p>You have 1 item in your cart</p>
+      <div class="divider"></div>
+      <div class="table-container">
+        <p>Item</p>
+        <p>Specta White</p>
+      </div>
+      <div class="divider"></div>
+      <div class="table-container">
+        <p>Price</p>
+        <p>£ 399</p>
+      </div>
+      <div class="divider"></div>
+      <div class="table-container">
+        <p>Quantity</p>
+        <p>-  1  +</p>
+      </div>
+      <div class="divider"></div>
+      <div class="table-container">
+        <p>Total excl. VAT</p>
+        <p>£ 418.80</p>
+      </div>
+      
     </section>
 
     <section>
-      <a href="cart.html" class="button">Checkout</a> 
+      <a href="about.html" class="button">Checkout</a> 
     </section>
     
-    <footer style="position: fixed; bottom: 0;">
+    <footer style="position: absolute; bottom: 10px; width: calc(100% - 20px);">
 
-      <div class="footer-top table-container">
+      <div class="footer-top table-container footer-table">
         <p>info@litia.com</p>
         <p>22 Needham RoadLondon <br>United Kingdom</p>
       </div>
 
       <div class="divider"></div>
       
-      <div class="footer-bottom table-container">
+      <div class="footer-bottom table-container footer-table">
         <p>© 2023 Litia</p>
         <p>Terms & Conditions</p>
         <p>Cookies</p>
         <p>English (UK)</p>
       </div>
-    </footer>    
+    </footer>        
 
     <script src="app.js"></script>
     
