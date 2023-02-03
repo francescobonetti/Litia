@@ -132,6 +132,8 @@ header {
   justify-content: space-between;
 }
 
+.menulink:hover {opacity: 0.5;}
+
 .logo {height: 100%; margin-right: 3em;}
 .logo img {height: 100%}
 
