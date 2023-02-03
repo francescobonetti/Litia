@@ -10,7 +10,6 @@ let specta;
 let basetta;
 let movelights = {value: 1};
 let video = document.querySelector(".video-scrub")
-console.log(video)
 let loading = document.querySelector(".loading");
 let camera;
 
@@ -188,6 +187,7 @@ function setupAnimation(){
   models.iphone.rotation.x = -2
 
   models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.envMapIntensity = 0;
+  console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
 
   if(mobileX.matches){ mobileAnimation() }
   else {desktopAnimation()}
@@ -300,11 +300,13 @@ function desktopAnimation() {
         iphoneTex = "wave";
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map = waveTex;
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap = waveTex;
+        console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
     }
       else {
         iphoneTex = "app"
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map = appTex;
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap = appTex;
+        //console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
       }
     }
 
@@ -321,8 +323,9 @@ function desktopAnimation() {
   tl.from(".buynow", {y:"100vh", delay: 0.3}, '<')
   section+=2; 
 
-  tl.to(specta.position, {y: 5, duration: 0.5}, section + 0.5)
-  tl.to(".buynow", {y: "-15vh", duration: 0.5}, '<')
+  tl.to(specta.position, {y: 4, duration: 0.5}, section + 0.5)
+  tl.to(".buynow", {y: "-10vh", duration: 0.5}, '<')
+  tl.from("footer", {y: "120%", duration: 0.5}, '<')
 }
 
 function mobileAnimation() {  

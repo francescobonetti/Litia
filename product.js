@@ -14,7 +14,7 @@ function scrollGallery() {
     setInterval(function(){
         galleryIndex ++
         if (galleryIndex == galleryImg.length) {gallery.scrollTo({top: 0, left: 0, behavior: "auto"})}
-        else{ gallery.scrollTo(imageW * galleryIndex, 0)}
+        else{gallery.scrollTo({top: 0, left: imageW * galleryIndex, behavior: "smooth"})}
     }, 5000)
 }
 
