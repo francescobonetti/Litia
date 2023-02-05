@@ -34,8 +34,8 @@ const toLoad = [
   {name: "specta", file: "assets/specta/Specta.gltf", group: new THREE.Group()},
   {name: "basetta", file: "assets/basetta/basetta.gltf", group: new THREE.Group()},
   {name: "iphone", file: "assets/dispositivi/iphone/scene.gltf", group: new THREE.Group()},
-  {name: "mac", file: "assets/dispositivi/mac/scene.gltf", group: new THREE.Group()},
-  {name: "tv", file: "assets/dispositivi/tv/scene.gltf", group: new THREE.Group()}
+  {name: "mac", file: "assets/dispositivi/macbook/Macbook.gltf", group: new THREE.Group()},
+  {name: "tv", file: "assets/dispositivi/tv/tv.gltf", group: new THREE.Group()}
 ]
 
 const models = {};
@@ -147,8 +147,6 @@ function loop() {
   startLeftLight.position.y = -movelights.value *  10 * Math.cos(Date.now() / 2000);
   startLeftLight.position.x = -movelights.value *  10 * Math.sin(Date.now() / 2000);
   
-
-  
 }
 
 function mapRange (value, a, b, c, d) {
@@ -176,10 +174,10 @@ function setupAnimation(){
 
   models.iphone.scale.set(mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7))
   models.mac.scale.set(mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7),mapRange(sizes.width, 400, 1000, 4.5, 7))
-  models.tv.scale.set(mapRange(sizes.width, 400, 1000, 2.1, 3.2), mapRange(sizes.width, 400, 1000, 2.1, 3.2), mapRange(sizes.width, 400, 1000, 2.1, 3.2))
+  models.tv.scale.set(mapRange(sizes.width, 400, 1000, 10, 25), mapRange(sizes.width, 400, 1000, 10, 25), mapRange(sizes.width, 400, 1000, 10, 25))
 
   models.mac.position.set(100, -10, -60)
-  models.tv.position.set(-100, 1, -60)
+  models.tv.position.set(-100, -10, -60)
   models.iphone.position.set(0, 30, 20)
 
   models.mac.rotation.y = 1.57
@@ -187,7 +185,7 @@ function setupAnimation(){
   models.iphone.rotation.x = -2
 
   models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.envMapIntensity = 0;
-  console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
+  //console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
 
   if(mobileX.matches){ mobileAnimation() }
   else {desktopAnimation()}
@@ -300,7 +298,7 @@ function desktopAnimation() {
         iphoneTex = "wave";
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map = waveTex;
         models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.emissiveMap = waveTex;
-        console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
+        //console.log(models.iphone.children[0].children[0].children[0].children[0].children[0].children[3].children[5].material.map)
     }
       else {
         iphoneTex = "app"
@@ -402,7 +400,7 @@ function mobileAnimation() {
   tl.to(specta.rotation, {x:0, y:0, z:0}, '<')
   tl.to(models.mac.position, {x:16, y: -10, z: -100}, '<')
   tl.to(models.mac.rotation, {y:0.8}, '<')
-  tl.to(models.tv.position, {x:-15, y: -4,  z: -100}, '<')
+  tl.to(models.tv.position, {x:-8, y: -6,  z: -40}, '<')
   tl.to(models.tv.rotation, {y:-0.8}, '<')
   tl.to(models.iphone.position, {z:-60, y:-3, duration: 1.5}, section + 0.5)
   tl.to(models.iphone.rotation, {x:0, duration: 1.5}, '<')
